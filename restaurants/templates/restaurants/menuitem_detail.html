@@ -1,0 +1,60 @@
+{% extends 'restaurants/base.html' %}
+
+{% block title %}{{ menu_item.nome }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2>{{ menu_item.nome }}</h2>
+                <p class="text-muted">Restaurante: <a href="{% url 'restaurant_detail' menu_item.restaurante.pk %}">{{ menu_item.restaurante.nome }}</a></p>
+                
+                <hr>
+                
+                <h5>Descrição</h5>
+                <p>{{ menu_item.descricao }}</p>
+                
+                <h5>Preço</h5>
+                <p class="h4 text-success">R$ {{ menu_item.preco }}</p>
+                
+                <h5>Disponibilidade</h5>
+                <p>
+                    {% if menu_item.disponivel_apenas_restaurante %}
+                    <span class="badge bg-info">Disponível apenas no Restaurante</span>
+                    {% else %}
+                    <span class="badge bg-success">Disponível para Delivery</span>
+                    {% endif %}
+                </p>
+                
+                {% if menu_item.foto_caminho %}
+                <h5>Foto</h5>
+                <p><code>{{ menu_item.foto_caminho }}</code></p>
+                {% endif %}
+                
+                <p class="text-muted">Criado em: {{ menu_item.criado_em|date:"d/m/Y H:i" }}</p>
+                
+                {% if user == menu_item.restaurante.dono %}
+                <hr>
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{% url 'menuitem_update' menu_item.pk %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'menuitem_delete' menu_item.pk %}" class="btn btn-danger">Deletar</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Navegação</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'restaurant_detail' menu_item.restaurante.pk %}" class="btn btn-outline-primary">Ver Restaurante</a>
+                    <a href="{% url 'restaurant_list' %}" class="btn btn-outline-secondary">Lista de Restaurantes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

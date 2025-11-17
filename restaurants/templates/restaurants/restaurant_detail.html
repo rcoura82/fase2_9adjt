@@ -1,0 +1,75 @@
+{% extends 'restaurants/base.html' %}
+
+{% block title %}{{ restaurant.nome }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>{{ restaurant.nome }}</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Informações do Restaurante</h5>
+                <p><strong>Endereço:</strong> {{ restaurant.endereco }}</p>
+                <p><strong>Tipo de Cozinha:</strong> {{ restaurant.tipo_cozinha }}</p>
+                <p><strong>Horário de Funcionamento:</strong> {{ restaurant.horario_funcionamento }}</p>
+                <p><strong>Dono:</strong> {{ restaurant.dono.username }}</p>
+                <p><strong>Criado em:</strong> {{ restaurant.criado_em|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+
+        {% if user == restaurant.dono %}
+        <div class="mb-4">
+            <a href="{% url 'restaurant_update' restaurant.pk %}" class="btn btn-warning">Editar Restaurante</a>
+            <a href="{% url 'restaurant_delete' restaurant.pk %}" class="btn btn-danger">Deletar Restaurante</a>
+        </div>
+        {% endif %}
+
+        <h3>Cardápio</h3>
+        {% if user == restaurant.dono %}
+        <a href="{% url 'menuitem_create' restaurant.pk %}" class="btn btn-success mb-3">Adicionar Item ao Cardápio</a>
+        {% endif %}
+
+        {% if menu_items %}
+        <div class="row">
+            {% for item in menu_items %}
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.nome }}</h5>
+                        <p class="card-text">{{ item.descricao|truncatewords:20 }}</p>
+                        <p><strong>Preço:</strong> R$ {{ item.preco }}</p>
+                        {% if item.disponivel_apenas_restaurante %}
+                        <span class="badge bg-info">Apenas no Restaurante</span>
+                        {% endif %}
+                        <br><br>
+                        <a href="{% url 'menuitem_detail' item.pk %}" class="btn btn-sm btn-primary">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            Nenhum item no cardápio ainda.
+            {% if user == restaurant.dono %}
+            <a href="{% url 'menuitem_create' restaurant.pk %}">Adicione o primeiro!</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Ações Rápidas</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'restaurant_list' %}" class="btn btn-outline-primary">Voltar para Lista</a>
+                    {% if user == restaurant.dono %}
+                    <a href="{% url 'menuitem_create' restaurant.pk %}" class="btn btn-outline-success">Novo Item</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
