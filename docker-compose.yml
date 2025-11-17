@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  restaurant-system:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: restaurant-system-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:restaurantdb
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_H2_CONSOLE_ENABLED=true
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - restaurant-network
+
+networks:
+  restaurant-network:
+    driver: bridge
