@@ -21,9 +21,6 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private UserRole role;
-    private String fullName;
-    private String specialty;  // For doctors
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
 }

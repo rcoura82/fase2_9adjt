@@ -65,9 +65,6 @@ public class UserRepositoryImpl implements UserRepository {
                 .username(domain.getUsername())
                 .email(domain.getEmail())
                 .password(domain.getPassword())
-                .role(domain.getRole())
-                .fullName(domain.getFullName())
-                .specialty(domain.getSpecialty())
                 .criadoEm(domain.getCriadoEm())
                 .atualizadoEm(domain.getAtualizadoEm())
                 .build();
@@ -79,9 +76,6 @@ public class UserRepositoryImpl implements UserRepository {
                 .username(entity.getUsername())
                 .email(entity.getEmail())
                 .password(entity.getPassword())
-                .role(entity.getRole())
-                .fullName(entity.getFullName())
-                .specialty(entity.getSpecialty())
                 .criadoEm(entity.getCriadoEm())
                 .atualizadoEm(entity.getAtualizadoEm())
                 .build();

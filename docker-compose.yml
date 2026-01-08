@@ -1,52 +1,28 @@
 version: '3.8'
 
 services:
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: hospital-rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    networks:
-      - hospital-network
-
-  hospital-system:
+  restaurant-system:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: hospital-system-app
+    container_name: restaurant-system-app
     ports:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=default
-      - SPRING_DATASOURCE_URL=jdbc:h2:mem:hospitaldb
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:restaurantdb
       - SPRING_DATASOURCE_USERNAME=sa
       - SPRING_DATASOURCE_PASSWORD=
       - SPRING_H2_CONSOLE_ENABLED=true
-      - SPRING_RABBITMQ_HOST=rabbitmq
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/actuator/health || exit 1"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     networks:
-      - hospital-network
+      - restaurant-network
 
 networks:
-  hospital-network:
+  restaurant-network:
     driver: bridge

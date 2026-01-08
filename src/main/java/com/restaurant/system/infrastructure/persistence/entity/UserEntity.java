@@ -1,13 +1,10 @@
 package com.restaurant.system.infrastructure.persistence.entity;
 
-import com.restaurant.system.domain.model.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -36,21 +33,6 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
     
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role;
-    
-    @Column(nullable = false)
-    private String fullName;
-    
-    private String specialty;  // For doctors
-    
-    @CreationTimestamp
-    @Column(name = "criado_em", nullable = false, updatable = false)
     private LocalDateTime criadoEm;
-    
-    @UpdateTimestamp
-    @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 }
-

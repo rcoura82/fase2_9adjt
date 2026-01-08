@@ -6,7 +6,6 @@ import com.restaurant.system.application.exception.ResourceNotFoundException;
 import com.restaurant.system.domain.model.User;
 import com.restaurant.system.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
 public class UserUseCase {
     
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     
     public UserDTO create(UserDTO dto) {
         if (userRepository.existsByUsername(dto.getUsername())) {
@@ -34,10 +32,7 @@ public class UserUseCase {
         User user = User.builder()
                 .username(dto.getUsername())
                 .email(dto.getEmail())
-                .password(passwordEncoder.encode(dto.getPassword()))
-                .role(dto.getRole())
-                .fullName(dto.getFullName())
-                .specialty(dto.getSpecialty())
+                .password(dto.getPassword()) // In production, this should be encrypted
                 .criadoEm(LocalDateTime.now())
                 .atualizadoEm(LocalDateTime.now())
                 .build();
@@ -79,11 +74,8 @@ public class UserUseCase {
         existing.setUsername(dto.getUsername());
         existing.setEmail(dto.getEmail());
         if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
-            existing.setPassword(passwordEncoder.encode(dto.getPassword()));
+            existing.setPassword(dto.getPassword());
         }
-        existing.setRole(dto.getRole());
-        existing.setFullName(dto.getFullName());
-        existing.setSpecialty(dto.getSpecialty());
         existing.setAtualizadoEm(LocalDateTime.now());
         
         User updated = userRepository.save(existing);
@@ -102,9 +94,6 @@ public class UserUseCase {
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .role(user.getRole())
-                .fullName(user.getFullName())
-                .specialty(user.getSpecialty())
                 // Don't return password in DTO
                 .build();
     }
