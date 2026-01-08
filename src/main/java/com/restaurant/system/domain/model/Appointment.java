@@ -8,22 +8,24 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * Domain entity representing a User (Restaurant Owner)
+ * Domain entity representing an Appointment
  * Part of Clean Architecture - Domain Layer
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Appointment {
     
     private Long id;
-    private String username;
-    private String email;
-    private String password;
-    private UserRole role;
-    private String fullName;
-    private String specialty;  // For doctors
+    private Long patientId;
+    private String patientName;
+    private Long doctorId;
+    private String doctorName;
+    private LocalDateTime appointmentDate;
+    private String specialty;
+    private String notes;
+    private AppointmentStatus status;
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
 }

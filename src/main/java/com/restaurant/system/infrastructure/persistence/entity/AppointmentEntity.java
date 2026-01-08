@@ -1,6 +1,6 @@
 package com.restaurant.system.infrastructure.persistence.entity;
 
-import com.restaurant.system.domain.model.UserRole;
+import com.restaurant.system.domain.model.AppointmentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,38 +12,45 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 /**
- * JPA Entity for User
- * Part of Clean Architecture - Infrastructure Layer
+ * JPA Entity for Appointment
+ * Part of Clean Architecture - Infrastructure Layer (Adapter)
  */
 @Entity
-@Table(name = "users")
+@Table(name = "appointments")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
+public class AppointmentEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false, unique = true)
-    private String username;
+    @Column(nullable = false)
+    private Long patientId;
     
     @Column(nullable = false)
-    private String email;
+    private String patientName;
     
     @Column(nullable = false)
-    private String password;
+    private Long doctorId;
+    
+    @Column(nullable = false)
+    private String doctorName;
+    
+    @Column(nullable = false)
+    private LocalDateTime appointmentDate;
+    
+    @Column(nullable = false)
+    private String specialty;
+    
+    @Column(length = 1000)
+    private String notes;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserRole role;
-    
-    @Column(nullable = false)
-    private String fullName;
-    
-    private String specialty;  // For doctors
+    private AppointmentStatus status;
     
     @CreationTimestamp
     @Column(name = "criado_em", nullable = false, updatable = false)
@@ -53,4 +60,3 @@ public class UserEntity {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 }
-
