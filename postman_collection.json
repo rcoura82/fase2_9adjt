@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "restaurant-system-api",
+		"name": "Restaurant Management System API",
+		"description": "Complete CRUD API for Restaurant Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"johndoe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"senha123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users"]
+						}
+					}
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users"]
+						}
+					}
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get User by Username",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/username/johndoe",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "username", "johndoe"]
+						}
+					}
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"johndoe\",\n  \"email\": \"john.updated@example.com\",\n  \"password\": \"newpassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "users", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "User Types",
+			"item": [
+				{
+					"name": "Create User Type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Administrador\",\n  \"descricao\": \"Usuário com permissões administrativas\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/user-types",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "user-types"]
+						}
+					}
+				},
+				{
+					"name": "Get All User Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/user-types",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "user-types"]
+						}
+					}
+				},
+				{
+					"name": "Get User Type by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/user-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "user-types", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update User Type",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Super Administrador\",\n  \"descricao\": \"Usuário com todas as permissões\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/user-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "user-types", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete User Type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/user-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "user-types", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Restaurants",
+			"item": [
+				{
+					"name": "Create Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Restaurante Italiano\",\n  \"endereco\": \"Rua das Flores, 123\",\n  \"tipoCozinha\": \"Italiana\",\n  \"horarioFuncionamento\": \"11h-23h\",\n  \"donoId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "restaurants"]
+						}
+					}
+				},
+				{
+					"name": "Get All Restaurants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "restaurants"]
+						}
+					}
+				},
+				{
+					"name": "Get Restaurant by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "restaurants", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Restaurants by Owner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/owner/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "restaurants", "owner", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Restaurant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Restaurante Italiano Premium\",\n  \"endereco\": \"Rua das Flores, 123 - Centro\",\n  \"tipoCozinha\": \"Italiana Gourmet\",\n  \"horarioFuncionamento\": \"12h-00h\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "restaurants", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Restaurant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/restaurants/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "restaurants", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Menu Items",
+			"item": [
+				{
+					"name": "Create Menu Item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Pizza Margherita\",\n  \"descricao\": \"Pizza tradicional italiana com molho de tomate, mussarela e manjericão\",\n  \"preco\": 35.90,\n  \"disponivelApenasRestaurante\": false,\n  \"fotoCaminho\": \"/media/pizzas/margherita.jpg\",\n  \"restauranteId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/menu-items",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "menu-items"]
+						}
+					}
+				},
+				{
+					"name": "Get All Menu Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/menu-items",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "menu-items"]
+						}
+					}
+				},
+				{
+					"name": "Get Menu Item by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/menu-items/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "menu-items", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Menu Items by Restaurant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/menu-items/restaurant/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "menu-items", "restaurant", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Menu Item",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Pizza Margherita Premium\",\n  \"descricao\": \"Pizza italiana com mussarela de búfala importada\",\n  \"preco\": 45.90,\n  \"disponivelApenasRestaurante\": true,\n  \"fotoCaminho\": \"/media/pizzas/margherita-premium.jpg\",\n  \"restauranteId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/menu-items/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "menu-items", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Menu Item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/menu-items/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "menu-items", "1"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

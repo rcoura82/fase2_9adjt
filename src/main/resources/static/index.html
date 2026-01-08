@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gerenciamento de Restaurantes</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">🍽️ Sistema de Restaurantes</h1>
+            <ul class="nav-menu">
+                <li><a href="#" data-section="home" class="nav-link active">Início</a></li>
+                <li><a href="#" data-section="users" class="nav-link">Usuários</a></li>
+                <li><a href="#" data-section="user-types" class="nav-link">Tipos de Usuário</a></li>
+                <li><a href="#" data-section="restaurants" class="nav-link">Restaurantes</a></li>
+                <li><a href="#" data-section="menu-items" class="nav-link">Cardápios</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="welcome-banner">
+                <h2>Bem-vindo ao Sistema de Gerenciamento de Restaurantes</h2>
+                <p>Gerencie restaurantes, cardápios, usuários e tipos de usuário de forma simples e eficiente.</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="total-users">0</h3>
+                        <p>Usuários</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-restaurants">0</h3>
+                        <p>Restaurantes</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-menu-items">0</h3>
+                        <p>Itens de Cardápio</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-user-types">0</h3>
+                        <p>Tipos de Usuário</p>
+                    </div>
+                </div>
+                <div class="quick-links">
+                    <h3>Acesso Rápido</h3>
+                    <button onclick="showSection('users')" class="btn btn-primary">Gerenciar Usuários</button>
+                    <button onclick="showSection('restaurants')" class="btn btn-primary">Gerenciar Restaurantes</button>
+                    <a href="/swagger-ui.html" target="_blank" class="btn btn-secondary">Documentação API</a>
+                    <a href="/h2-console" target="_blank" class="btn btn-secondary">Console H2</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="users" class="section">
+            <div class="section-header">
+                <h2>Gerenciamento de Usuários</h2>
+                <button onclick="showUserForm()" class="btn btn-primary">➕ Novo Usuário</button>
+            </div>
+            <div id="user-form" class="form-container" style="display: none;">
+                <h3 id="user-form-title">Novo Usuário</h3>
+                <form id="userForm">
+                    <input type="hidden" id="userId">
+                    <div class="form-group">
+                        <label>Username:</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="button" onclick="cancelUserForm()" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+            <div id="users-list" class="data-grid"></div>
+        </section>
+
+        <!-- User Types Section -->
+        <section id="user-types" class="section">
+            <div class="section-header">
+                <h2>Tipos de Usuário</h2>
+                <button onclick="showUserTypeForm()" class="btn btn-primary">➕ Novo Tipo</button>
+            </div>
+            <div id="user-type-form" class="form-container" style="display: none;">
+                <h3 id="user-type-form-title">Novo Tipo de Usuário</h3>
+                <form id="userTypeForm">
+                    <input type="hidden" id="userTypeId">
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input type="text" id="userTypeName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição:</label>
+                        <textarea id="userTypeDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="button" onclick="cancelUserTypeForm()" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+            <div id="user-types-list" class="data-grid"></div>
+        </section>
+
+        <!-- Restaurants Section -->
+        <section id="restaurants" class="section">
+            <div class="section-header">
+                <h2>Gerenciamento de Restaurantes</h2>
+                <button onclick="showRestaurantForm()" class="btn btn-primary">➕ Novo Restaurante</button>
+            </div>
+            <div id="restaurant-form" class="form-container" style="display: none;">
+                <h3 id="restaurant-form-title">Novo Restaurante</h3>
+                <form id="restaurantForm">
+                    <input type="hidden" id="restaurantId">
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input type="text" id="restaurantName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Endereço:</label>
+                        <textarea id="restaurantAddress" rows="2" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Cozinha:</label>
+                        <input type="text" id="restaurantCuisine" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Horário de Funcionamento:</label>
+                        <input type="text" id="restaurantHours" required placeholder="Ex: Seg-Sex 10h-22h">
+                    </div>
+                    <div class="form-group">
+                        <label>Dono (Usuário):</label>
+                        <select id="restaurantOwner" required>
+                            <option value="">Selecione um usuário</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="button" onclick="cancelRestaurantForm()" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+            <div id="restaurants-list" class="data-grid"></div>
+        </section>
+
+        <!-- Menu Items Section -->
+        <section id="menu-items" class="section">
+            <div class="section-header">
+                <h2>Gerenciamento de Cardápios</h2>
+                <button onclick="showMenuItemForm()" class="btn btn-primary">➕ Novo Item</button>
+            </div>
+            <div id="menu-item-form" class="form-container" style="display: none;">
+                <h3 id="menu-item-form-title">Novo Item do Cardápio</h3>
+                <form id="menuItemForm">
+                    <input type="hidden" id="menuItemId">
+                    <div class="form-group">
+                        <label>Restaurante:</label>
+                        <select id="menuItemRestaurant" required>
+                            <option value="">Selecione um restaurante</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nome do Prato:</label>
+                        <input type="text" id="menuItemName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição:</label>
+                        <textarea id="menuItemDescription" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Preço (R$):</label>
+                        <input type="number" id="menuItemPrice" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="menuItemInRestaurantOnly">
+                            Disponível apenas no restaurante
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Caminho da Foto:</label>
+                        <input type="text" id="menuItemPhoto" placeholder="/media/fotos/prato.jpg">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="button" onclick="cancelMenuItemForm()" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+            <div id="menu-items-list" class="data-grid"></div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
