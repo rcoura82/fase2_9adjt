@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
+@WithMockUser(username = "testuser", roles = {"DOCTOR"})
 class RestaurantControllerIntegrationTest {
     
     @Autowired
@@ -37,6 +39,8 @@ class RestaurantControllerIntegrationTest {
                 .username("testuser")
                 .email("test@example.com")
                 .password("password123")
+                .role(com.restaurant.system.domain.model.UserRole.DOCTOR)
+                .fullName("Test User")
                 .build();
         
         String userResponse = mockMvc.perform(post("/api/users")

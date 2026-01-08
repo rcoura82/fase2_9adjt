@@ -12,7 +12,7 @@
         <relativePath/>
     </parent>
     
-    <groupId>com.hospital</groupId>
+    <groupId>com.restaurant</groupId>
     <artifactId>hospital-system</artifactId>
     <version>1.0.0</version>
     <name>Hospital Management System</name>

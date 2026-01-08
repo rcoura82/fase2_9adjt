@@ -31,6 +31,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+            // CSRF disabled for stateless REST API with Basic Auth
+            // In production, consider enabling CSRF for state-changing operations
+            // or implement token-based authentication (JWT) with CSRF tokens
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll()
